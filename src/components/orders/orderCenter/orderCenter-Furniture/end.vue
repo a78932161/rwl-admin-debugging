@@ -45,7 +45,8 @@
               </el-form-item>
               <el-form-item label="套餐选择"><span>{{ props.row.goods }}</span></el-form-item>
               <el-form-item label="已付金额"><span>{{ props.row.amount/100 }}</span></el-form-item>
-              <el-form-item label="支付方式"><span>{{ props.row.payMode}}</span></el-form-item>               <el-form-item label="更新时间"><span>{{props.row.statusUpdateTime}}</span></el-form-item>
+              <el-form-item label="支付方式"><span>{{ props.row.payMode}}</span></el-form-item>
+              <el-form-item label="更新时间"><span>{{props.row.statusUpdateTime}}</span></el-form-item>
 
               <el-form-item style="text-align: center;width:100%">
                 <el-button type="primary" @click="details(props.row)">查看详情</el-button>
@@ -129,18 +130,12 @@
               value.goods1 = b[0];
               value.goods = b.join(',');
             }
-            value.createtime = this.getLocalTime(value.createtime);             value.statusUpdateTime = statusUpdateTime(value.statusUpdateTime);
+            value.createtime = this.getLocalTime(value.createtime);
+            value.statusUpdateTime = statusUpdateTime(value.statusUpdateTime);
 
           });
           this.tableData = this.$store.state.orderFind.object;
-          this.total = this.$store.state.orderFind.length;
-          this.inquire = {
-            page: this.page,
-            size: this.size,
-            type: 3,
-            status: 5,
-          };
-          this.$store.commit('getieData', this.inquire);
+          this.total = this.$store.state.orderFind.totalSize;
         } else if (this.$store.state.orderArea.content) {
           this.$store.state.orderArea.content.forEach((value) => {
             value.total = value.items.length + '件';
@@ -159,18 +154,13 @@
               value.goods1 = b[0];
               value.goods = b.join(',');
             }
-            value.createtime = this.getLocalTime(value.createtime);             value.statusUpdateTime = statusUpdateTime(value.statusUpdateTime);
+            value.createtime = this.getLocalTime(value.createtime);
+            value.statusUpdateTime = statusUpdateTime(value.statusUpdateTime);
 
           });
           this.tableData = this.$store.state.orderArea.content;
           this.total = this.$store.state.orderArea.totalElements;
-          this.inquire = {
-            page: this.page,
-            size: this.size,
-            type: 3,
-            status: 5,
-          };
-          this.$store.commit('getieData', this.inquire);
+
 
         } else {
           let a = {
@@ -197,18 +187,12 @@
                 value.goods1 = b[0];
                 value.goods = b.join(',');
               }
-              value.createtime = this.getLocalTime(value.createtime);             value.statusUpdateTime = statusUpdateTime(value.statusUpdateTime);
+              value.createtime = this.getLocalTime(value.createtime);
+              value.statusUpdateTime = statusUpdateTime(value.statusUpdateTime);
 
             });
             this.tableData = res.data.data.content;
             this.total = res.data.data.totalElements;
-            this.inquire = {
-              page: this.page,
-              size: this.size,
-              type: 3,
-              status: 5,
-            };
-            this.$store.commit('getieData', this.inquire);
           });
         }
       },
@@ -224,6 +208,13 @@
       },
       handleCurrentChange(val) {
         this.page = val;
+        this.inquire = {
+          page: this.page,
+          size: this.size,
+          type: 3,
+          status: 5,
+        };
+        this.$store.commit('getieData', this.inquire);
         this.getFurnitureList();
       },
       details(row) {
@@ -234,6 +225,13 @@
     mounted() {
       this.$store.state.orderFind = [];
       this.$store.state.orderArea = [];
+      this.inquire = {
+        page: 1,
+        size: 10,
+        type: 3,
+        status: 5,
+      };
+      this.$store.commit('getieData', this.inquire);
       this.getFurnitureList();
     }
   }

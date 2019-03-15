@@ -136,14 +136,8 @@
 
           });
           this.tableData = this.$store.state.orderFind.object;
-          this.total = this.$store.state.orderFind.totalsize;
-          this.inquire = {
-            page: this.page,
-            size: this.size,
-            type: 4,
-            status: 5,
-          };
-          this.$store.commit('getieData', this.inquire);
+          this.total = this.$store.state.orderFind.totalSize;
+
         } else if (this.$store.state.orderArea.content) {
           this.$store.state.orderArea.content.forEach((value) => {
             value.total = value.items.length + '件';
@@ -168,13 +162,7 @@
           });
           this.tableData = this.$store.state.orderArea.content;
           this.total = this.$store.state.orderArea.totalElements;
-          this.inquire = {
-            page: this.page,
-            size: this.size,
-            type: 4,
-            status: 5,
-          };
-          this.$store.commit('getieData', this.inquire);
+
 
         } else {
           let a = {
@@ -207,13 +195,7 @@
             });
             this.tableData = res.data.data.content;
             this.total = res.data.data.totalElements;
-            this.inquire = {
-              page: this.page,
-              size: this.size,
-              type: 4,
-              status: 5,
-            };
-            this.$store.commit('getieData', this.inquire);
+
           });
         }
       },
@@ -228,10 +210,17 @@
       },
       handleCurrentChange(val) {
         this.page = val;
+        this.inquire = {
+          page: this.page,
+          size: this.size,
+          type: 4,
+          status: 5,
+        };
+        this.$store.commit('getieData', this.inquire);
         this.getMallList();
       },
       daochu() {
-        window.location.href = 'https://rtest.rwlai.com/rwlmall/mallorder/export?status=5';
+        window.location.href = 'http://www.embracex.com/rwlmall//mallorder/export?status=5';
       },
       details(row) {
         let a = row.id;
@@ -241,6 +230,13 @@
     mounted() {
       this.$store.state.orderFind = [];
       this.$store.state.orderArea = [];
+      this.inquire = {
+        page: 1,
+        size: 10,
+        type: 4,
+        status: 5,
+      };
+      this.$store.commit('getieData', this.inquire);
       this.getMallList();
     }
   }

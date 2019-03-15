@@ -14,7 +14,7 @@
         <el-select v-model="value" clearable placeholder="请选择">
           <el-option
             v-for="item in options"
-            :key="item.value"
+            :key="item.id"
             :label="item.label"
             :value="item.value">
           </el-option>
@@ -126,7 +126,6 @@
       getLaundryList() {
         this.options = [];
         this.tableData = [];
-        this.$store.state.getieData = [];
         this.inquire = [];
         if (this.$store.state.orderFind.object) {
           this.$store.state.orderFind.object.forEach((value) => {
@@ -150,14 +149,8 @@
             value.statusUpdateTime = statusUpdateTime(value.statusUpdateTime);
           });
           this.tableData = this.$store.state.orderFind.object;
-          this.total = this.$store.state.orderFind.totalsize;
-          this.inquire = {
-            page: this.page,
-            size: this.size,
-            type: 1,
-            status: 0,
-          };
-          this.$store.commit('getieData', this.inquire);
+          this.total = this.$store.state.orderFind.totalSize;
+
         } else if (this.$store.state.orderArea.content) {
           this.$store.state.orderArea.content.forEach((value) => {
             value.total = value.items.length + '件';
@@ -181,13 +174,7 @@
           });
           this.tableData = this.$store.state.orderArea.content;
           this.total = this.$store.state.orderArea.totalElements;
-          this.inquire = {
-            page: this.page,
-            size: this.size,
-            type: 1,
-            status: 0,
-          };
-          this.$store.commit('getieData', this.inquire);
+
         } else {
           let a = {
             type: 1,
@@ -219,13 +206,7 @@
             });
             this.tableData = res.data.data.content;
             this.total = res.data.data.totalElements;
-            this.inquire = {
-              page: this.page,
-              size: this.size,
-              type: 1,
-              status: 0,
-            };
-            this.$store.commit('getieData', this.inquire);
+
           });
           storelaundry().then((res) => {
             res.data.data.forEach((value) => {
@@ -240,6 +221,13 @@
       },
       handleCurrentChange(val) {
         this.page = val;
+        this.inquire = {
+          page: this.page,
+          size: this.size,
+          status: 0,
+          type: 1,
+        };
+        this.$store.commit('getieData', this.inquire);
         this.getLaundryList();
       },
 
@@ -370,6 +358,13 @@
     mounted() {
       this.$store.state.orderFind = [];
       this.$store.state.orderArea = [];
+      let inquire = {
+        page: 1,
+        size: 10,
+        type: 1,
+        status: 0,
+      };
+      this.$store.commit('getieData', inquire);
       this.getLaundryList();
     },
     watch: {

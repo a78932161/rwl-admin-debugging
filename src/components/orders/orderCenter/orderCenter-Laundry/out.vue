@@ -45,7 +45,8 @@
               </el-form-item>
               <el-form-item label="套餐选择"><span>{{ props.row.goods }}</span></el-form-item>
               <el-form-item label="已付金额"><span>{{ props.row.amount/100 }}</span></el-form-item>
-              <el-form-item label="支付方式"><span>{{ props.row.payMode}}</span></el-form-item>               <el-form-item label="更新时间"><span>{{props.row.statusUpdateTime}}</span></el-form-item>
+              <el-form-item label="支付方式"><span>{{ props.row.payMode}}</span></el-form-item>
+              <el-form-item label="更新时间"><span>{{props.row.statusUpdateTime}}</span></el-form-item>
               <el-form-item style="text-align: center;width:100%">
                 <el-button type="primary" @click="details(props.row)">查看详情</el-button>
               </el-form-item>
@@ -128,7 +129,8 @@
               value.goods1 = b[0];
               value.goods = b.join(',');
             }
-            value.createtime = this.getLocalTime(value.createtime);             value.statusUpdateTime = statusUpdateTime(value.statusUpdateTime);
+            value.createtime = this.getLocalTime(value.createtime);
+            value.statusUpdateTime = statusUpdateTime(value.statusUpdateTime);
           });
           this.tableData = res.data.data.object;
           this.total = res.data.data.totalSize;

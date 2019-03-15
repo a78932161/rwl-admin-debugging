@@ -8,7 +8,7 @@
         <el-breadcrumb-item>取消订单</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
-<inquire @orderData="orderData"></inquire>
+    <inquire @orderData="orderData"></inquire>
     <div class="ord-content5">
       <div>
         <el-cascader
@@ -21,7 +21,7 @@
         <el-button type="primary" disabled>立即派送</el-button>
         <el-button type="primary" disabled>已派订单</el-button>
         <el-button type="primary" disabled>入站订单</el-button>
-        <el-button type="primary" >取消订单</el-button>
+        <el-button type="primary">取消订单</el-button>
       </div>
     </div>
     <div>
@@ -43,8 +43,9 @@
               <el-form-item label="预约时间">
                 <span>{{ props.row.deliveryDate }}</span>
               </el-form-item>
-<el-form-item label="套餐选择">                <span>{{ props.row.goods }}</span>              </el-form-item>
-<el-form-item label="已付金额">                <span>{{ props.row.amount/100 }}</span>              </el-form-item>              <el-form-item label="支付方式">                <span>{{ props.row.payMode}}</span>              </el-form-item>
+              <el-form-item label="套餐选择"><span>{{ props.row.goods }}</span></el-form-item>
+              <el-form-item label="已付金额"><span>{{ props.row.amount/100 }}</span></el-form-item>
+              <el-form-item label="支付方式"><span>{{ props.row.payMode}}</span></el-form-item>
               <el-form-item style="text-align: center;width:100%">
                 <el-button type="primary" @click="details(props.row)">查看详情</el-button>
                 <el-button type="primary">订单退款</el-button>
@@ -52,7 +53,7 @@
             </el-form>
           </template>
         </el-table-column>
-<el-table-column
+        <el-table-column
           type="selection"
           width="55">
         </el-table-column>
@@ -60,13 +61,13 @@
           label="ID"
           prop="number">
         </el-table-column>
-<el-table-column           width="150"           label="时间"           prop="createtime">         </el-table-column>
-<el-table-column           width="250"           label="地址"           prop="address">         </el-table-column>
+        <el-table-column width="150" label="时间" prop="createtime"></el-table-column>
+        <el-table-column width="250" label="地址" prop="address"></el-table-column>
         <el-table-column
           label="商品"
           prop="goods1">
         </el-table-column>
-<el-table-column           width="80"           label="件数"           prop="total">         </el-table-column>
+        <el-table-column width="80" label="件数" prop="total"></el-table-column>
       </el-table>
     </div>
     <div style="text-align: center;margin: 5% 0 5% 0;">
@@ -85,8 +86,9 @@
 
   import {getlaundry} from "@/components/api/orderLaundry";
   import inquire from '@/assets/vue/inquire'
+
   export default {
-    components:{
+    components: {
       inquire
     },
     data() {
@@ -95,8 +97,8 @@
         size: 10,
         total: 10,
         tableData: [],
-        options:[],
-        inquire:[],
+        options: [],
+        inquire: [],
       }
     },
     methods: {
@@ -107,32 +109,52 @@
         this.inquire = [];
         if (this.$store.state.orderFind.object != null) {
           this.$store.state.orderFind.object.forEach((value) => {
-value.total = value.items.length + '件';              if(value.payMode==0){                value.payMode='微信支付'              }else if(value.payMode==1){                value.payMode='余额支付'              }else if(value.payMode==2){                value.payMode='卡支付'              }              if (value.items) {                let b = [];                value.items.forEach((value1) => {                  b.push(value1.laundryProduct.name);                });                value.goods1=b[0];                value.goods = b.join(',');              }              value.createtime = this.getLocalTime(value.createtime);             value.statusUpdateTime = statusUpdateTime(value.statusUpdateTime);
+            value.total = value.items.length + '件';
+            if (value.payMode == 0) {
+              value.payMode = '微信支付'
+            } else if (value.payMode == 1) {
+              value.payMode = '余额支付'
+            } else if (value.payMode == 2) {
+              value.payMode = '卡支付'
+            }
+            if (value.items) {
+              let b = [];
+              value.items.forEach((value1) => {
+                b.push(value1.laundryProduct.name);
+              });
+              value.goods1 = b[0];
+              value.goods = b.join(',');
+            }
+            value.createtime = this.getLocalTime(value.createtime);
+            value.statusUpdateTime = statusUpdateTime(value.statusUpdateTime);
 
           });
           this.tableData = this.$store.state.orderFind.object;
-          this.total = this.$store.state.orderFind.length;
-          this.inquire = {
-            page: this.page,
-            size: this.size,
-            type: 2,
-            status: 6,
-          };
-          this.$store.commit('getieData', this.inquire);
+          this.total = this.$store.state.orderFind.totalSize;
         } else if (this.$store.state.orderArea.content) {
           this.$store.state.orderArea.content.forEach((value) => {
-value.total = value.items.length + '件';              if(value.payMode==0){                value.payMode='微信支付'              }else if(value.payMode==1){                value.payMode='余额支付'              }else if(value.payMode==2){                value.payMode='卡支付'              }              if (value.items) {                let b = [];                value.items.forEach((value1) => {                  b.push(value1.laundryProduct.name);                });                value.goods1=b[0];                value.goods = b.join(',');              }              value.createtime = this.getLocalTime(value.createtime);             value.statusUpdateTime = statusUpdateTime(value.statusUpdateTime);
+            value.total = value.items.length + '件';
+            if (value.payMode == 0) {
+              value.payMode = '微信支付'
+            } else if (value.payMode == 1) {
+              value.payMode = '余额支付'
+            } else if (value.payMode == 2) {
+              value.payMode = '卡支付'
+            }
+            if (value.items) {
+              let b = [];
+              value.items.forEach((value1) => {
+                b.push(value1.laundryProduct.name);
+              });
+              value.goods1 = b[0];
+              value.goods = b.join(',');
+            }
+            value.createtime = this.getLocalTime(value.createtime);
+            value.statusUpdateTime = statusUpdateTime(value.statusUpdateTime);
 
           });
           this.tableData = this.$store.state.orderArea.content;
           this.total = this.$store.state.orderArea.totalElements;
-          this.inquire = {
-            page: this.page,
-            size: this.size,
-            type: 2,
-            status: 6,
-          };
-          this.$store.commit('getieData', this.inquire);
 
         } else {
           let a = {
@@ -143,18 +165,28 @@ value.total = value.items.length + '件';              if(value.payMode==0){    
           };
           getlaundry(a).then((res) => {
             res.data.data.content.forEach((value) => {
-value.total = value.items.length + '件';              if(value.payMode==0){                value.payMode='微信支付'              }else if(value.payMode==1){                value.payMode='余额支付'              }else if(value.payMode==2){                value.payMode='卡支付'              }            if (value.items) {              let b = [];              value.items.forEach((value1) => {                b.push(value1.laundryProduct.name);              });              value.goods1 = b[0];              value.goods = b.join(',');            }            value.createtime = this.getLocalTime(value.createtime);             value.statusUpdateTime = statusUpdateTime(value.statusUpdateTime);
+              value.total = value.items.length + '件';
+              if (value.payMode == 0) {
+                value.payMode = '微信支付'
+              } else if (value.payMode == 1) {
+                value.payMode = '余额支付'
+              } else if (value.payMode == 2) {
+                value.payMode = '卡支付'
+              }
+              if (value.items) {
+                let b = [];
+                value.items.forEach((value1) => {
+                  b.push(value1.laundryProduct.name);
+                });
+                value.goods1 = b[0];
+                value.goods = b.join(',');
+              }
+              value.createtime = this.getLocalTime(value.createtime);
+              value.statusUpdateTime = statusUpdateTime(value.statusUpdateTime);
 
             });
             this.tableData = res.data.data.content;
             this.total = res.data.data.totalElements;
-            this.inquire = {
-              page: this.page,
-              size: this.size,
-              type: 2,
-              status: 6,
-            };
-            this.$store.commit('getieData', this.inquire);
           });
         }
       },
@@ -163,6 +195,13 @@ value.total = value.items.length + '件';              if(value.payMode==0){    
       },
       handleCurrentChange(val) {
         this.page = val;
+        this.inquire = {
+          page: this.page,
+          size: this.size,
+          status: 6,
+          type: 2,
+        };
+        this.$store.commit('getieData', this.inquire);
         this.getLaundryList();
       },
 
@@ -172,14 +211,21 @@ value.total = value.items.length + '件';              if(value.payMode==0){    
       getLocalTime(nS) {
         return new Date(parseInt(nS) * 1).toLocaleString().replace(/:\d{1,2}$/, ' ');
       },
-      details(row){
-        let a=row.id;
+      details(row) {
+        let a = row.id;
         this.$router.push({name: 'userOrders', query: {id: a}});
       },
     },
     mounted() {
       this.$store.state.orderFind = [];
       this.$store.state.orderArea = [];
+      this.inquire = {
+        page: 1,
+        size: 10,
+        type: 2,
+        status: 6,
+      };
+      this.$store.commit('getieData', this.inquire);
       this.getLaundryList();
     }
   }
@@ -194,7 +240,6 @@ value.total = value.items.length + '件';              if(value.payMode==0){    
     margin: 0 0 3% 0;
     text-align: center;
   }
-
 
   .ord-content5 button {
     width: 100px;

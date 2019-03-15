@@ -6,7 +6,9 @@ import {Loading, Message} from 'element-ui'
 
 
 var loadinginstace;
-let baseURL = 'https://rtest.rwlai.com/rwlmall';
+// let baseURL = 'http://www.embracex.com/rwlmall/';
+let baseURL = 'http://www.embracex.com/rwlmall';
+
 let URL = window.location.origin;
 let URL1 = '';
 if (window.location.pathname == '/') {

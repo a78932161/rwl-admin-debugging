@@ -14,7 +14,7 @@
         <el-select v-model="value" clearable placeholder="请选择">
           <el-option
             v-for="item in options"
-            :key="item.value"
+            :key="item.id"
             :label="item.label"
             :value="item.value">
           </el-option>
@@ -139,14 +139,8 @@
 
           });
           this.tableData = this.$store.state.orderFind.object;
-          this.total = this.$store.state.orderFind.length;
-          this.inquire = {
-            page: this.page,
-            size: this.size,
-            type: 4,
-            status: 0,
-          };
-          this.$store.commit('getieData', this.inquire);
+          this.total = this.$store.state.orderFind.totalSize;
+
         } else if (this.$store.state.orderArea.content) {
           this.$store.state.orderArea.content.forEach((value) => {
             value.total = value.items.length + '件';
@@ -171,13 +165,7 @@
           });
           this.tableData = this.$store.state.orderArea.content;
           this.total = this.$store.state.orderArea.totalElements;
-          this.inquire = {
-            page: this.page,
-            size: this.size,
-            type: 4,
-            status: 0,
-          };
-          this.$store.commit('getieData', this.inquire);
+
 
         } else {
           let a = {
@@ -211,13 +199,7 @@
             });
             this.tableData = res.data.data.content;
             this.total = res.data.data.totalElements;
-            this.inquire = {
-              page: this.page,
-              size: this.size,
-              type: 4,
-              status: 0,
-            };
-            this.$store.commit('getieData', this.inquire);
+
           });
           deliveryMall().then((res) => {
             res.data.data.forEach((value) => {
@@ -242,6 +224,13 @@
       },
       handleCurrentChange(val) {
         this.page = val;
+        this.inquire = {
+          page: this.page,
+          size: this.size,
+          type: 4,
+          status: 0,
+        };
+        this.$store.commit('getieData', this.inquire);
         this.getMallList();
       },
       quxiao(row) {
@@ -268,7 +257,7 @@
         });
       },
       daochu() {
-        window.location.href = 'https://rtest.rwlai.com/rwlmall/mallorder/export?status=0';
+        window.location.href = 'http://www.embracex.com/rwlmall//mallorder/export?status=0';
       },
       distribution() {
         let idData = [];
@@ -324,6 +313,13 @@
     mounted() {
       this.$store.state.orderFind = [];
       this.$store.state.orderArea = [];
+      this.inquire = {
+        page: 1,
+        size: 10,
+        type: 4,
+        status: 0,
+      };
+      this.$store.commit('getieData', this.inquire);
       this.getMallList();
 
     }

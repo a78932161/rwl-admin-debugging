@@ -118,6 +118,7 @@
       },
       getcx() {
         this.$store.state.orderFind = [];
+
         if (this.value) {
           let type = this.ieData.type;
 
@@ -199,6 +200,13 @@
           this.$store.state.orderFind = [];
           this.$store.state.orderArea = [];
           this.$emit('orderData', true);
+        }
+      },
+    },
+    watch: {
+      ieData: function (newVal, oldVal) {
+        if (newVal) {
+          this.getcx();
         }
       }
     },

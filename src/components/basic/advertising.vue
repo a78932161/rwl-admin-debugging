@@ -19,7 +19,7 @@
         </el-form-item>
         <el-form-item label="设置图片 :">
           <el-upload
-            action="https://rtest.rwlai.com/rwlmall/file/uploadimage"
+            action="http://www.embracex.com/rwlmall//file/uploadimage"
             :limit="5"
             list-type="picture-card"
             :headers="headers"
@@ -229,7 +229,7 @@
       },
       fileList(curVal, oldVal) {
         if (curVal[curVal.length - 1].response) {
-          curVal[curVal.length - 1]['address'] = 'https://rtest.rwlai.com/rwlmall/wechat/authorize?returnUrl=';
+          curVal[curVal.length - 1]['address'] = 'http://www.embracex.com/rwlmall//wechat/authorize?returnUrl=';
           console.log(curVal);
         }
       },

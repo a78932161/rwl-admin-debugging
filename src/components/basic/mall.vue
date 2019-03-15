@@ -57,7 +57,7 @@
             <el-form-item label="商品首图 :">
               <el-upload
                 class="avatar-uploader"
-                action="https://rtest.rwlai.com/rwlmall/file/uploadimage"
+                action="http://www.embracex.com/rwlmall//file/uploadimage"
                 :show-file-list="false"
                 :headers="headers"
                 :on-success="handleAvatarSuccess"
@@ -68,7 +68,7 @@
             </el-form-item>
             <el-form-item label="商品详情图 :">
               <el-upload
-                action="https://rtest.rwlai.com/rwlmall/file/uploadimage"
+                action="http://www.embracex.com/rwlmall//file/uploadimage"
                 list-type="picture-card"
                 :limit="10"
                 :headers="headers"
@@ -86,7 +86,7 @@
             </el-form-item>
             <el-form-item label="商品轮播图 :">
               <el-upload
-                action="https://rtest.rwlai.com/rwlmall/file/uploadimage"
+                action="http://www.embracex.com/rwlmall//file/uploadimage"
                 list-type="picture-card"
                 :limit="5"
                 :headers="headers"
@@ -108,7 +108,7 @@
             <el-form-item label="产品参数 :">
               <el-upload
                 class="avatar-uploader"
-                action="https://rtest.rwlai.com/rwlmall/file/uploadimage"
+                action="http://www.embracex.com/rwlmall//file/uploadimage"
                 :show-file-list="false"
                 :headers="headers"
                 :on-success="handleAvatarSuccess1"
