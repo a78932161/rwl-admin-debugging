@@ -19,7 +19,7 @@
         </el-form-item>
         <el-form-item label="设置图片 :">
           <el-upload
-            action="http://www.embracex.com/rwlmall//file/uploadimage"
+            action="http://www.embracex.com/rwlmall/file/uploadimage"
             :limit="5"
             list-type="picture-card"
             :headers="headers"
